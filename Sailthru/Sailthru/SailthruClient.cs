@@ -830,8 +830,15 @@ namespace Sailthru
             {
                 if (lastRateLimitInfo.ContainsKey(action))
                 {
-                    Hashtable rateLimitPerMethod = (Hashtable) lastRateLimitInfo[action];
-                    rateLimitPerMethod.Add(request.Method, rateLimitInfo);
+                    Hashtable rateLimitPerMethod = (Hashtable)lastRateLimitInfo[action];
+                    if (rateLimitPerMethod.ContainsKey(request.Method))
+                    {
+                        rateLimitPerMethod[request.Method] = rateLimitInfo;
+                    }
+                    else
+                    {
+                        rateLimitPerMethod.Add(request.Method, rateLimitInfo);
+                    }
                 }
                 else
                 {
